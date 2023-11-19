@@ -1,0 +1,14 @@
+// ESM
+{
+    "compilerOptions": {
+        "strict": true,
+        "module": "NodeNext",
+        "target": "ESNext",
+        "resolveJsonModule": true,
+        "moduleResolution": "NodeNext",
+        "rootDir": ".",
+        "baseUrl": ".",
+        "outDir": "./dist"
+    },
+    "include": ["./index.ts"],
+}
