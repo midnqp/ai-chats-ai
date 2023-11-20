@@ -31,10 +31,12 @@ def api_words():
 
     data = request.get_data(as_text=True) or '.'
     accent = request.args.get('accent')
+    tts_engine = request.args.get('tts')
 
     sentence = {
         "data":data ,
-        "accent":accent
+        "accent":accent,
+        "tts":tts_engine
     }
     sentences_received.append(sentence)
     log(f"post /sentence | {sentence}", color)
@@ -91,12 +93,17 @@ def worker_make_audio():
         for item in copy:
             data = item['data']
             accent = item['accent']
-
-            wav = tts_llm(data, accent)
-            
+            engine = item['tts']
             result = item.copy()
-            result['wav'] = wav
-            audios_made.append(result)
+
+            if engine == 'coqui-tts':
+                wav = tts_llm(data, accent)
+                result['wav'] = wav
+                audios_made.append(result)
+            elif engine == 'gtts':
+                mp3 = tts_gtts(data, accent)
+                result['wav'] = mp3
+                audios_made.append(result)
     
     tts_worker_running = False
     
@@ -126,7 +133,13 @@ def worker_play_audio():
                 requests.post('http://127.0.0.1:6000/sentence', json=c, timeout=1)
             except:
                 pass
-            play_wav(item['wav'])
+
+            if item['tts'] == 'coqui-tts':
+                play_wav(item['wav'])
+            elif item['tts'] == 'gtts':
+                fp = item['wav']
+                play_mp3(fp)
+                fp.close()
     
     play_worker_running = False
 
