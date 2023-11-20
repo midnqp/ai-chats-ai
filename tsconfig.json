@@ -1,4 +1,3 @@
-// ESM
 {
     "compilerOptions": {
         "strict": true,
@@ -10,5 +9,5 @@
         "baseUrl": ".",
         "outDir": "./dist"
     },
-    "include": ["./index.ts"],
+    "include": ["./index.ts", "./text.ts"],
 }
