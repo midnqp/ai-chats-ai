@@ -21,6 +21,8 @@ To run locally, follow these steps:
 - Run `$ ts-node-esm ./index.ts`
 
 <p align=center><img width=550 src="https://github.com/midnqp/ai-chats-ai/assets/50658760/6f60841c-5e39-4a33-a698-a7ae85d1fad2"></p>
+<p align=center><video width=150 autoplay src="https://github.com/midnqp/ai-chats-ai/assets/50658760/c5926496-12b6-4875-af80-75b4213d1633"  /> </p>
+
 
 #### Advanced
 
@@ -29,3 +31,6 @@ For advanced users, it is recommended to uplevel the Llama2 model by ensuring it
 PARAMETER num_thread 10
 ```
 Then create a new model with new name.
+
+
+
