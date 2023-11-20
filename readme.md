@@ -17,7 +17,7 @@ npm install
 pip3 install -r requirements.txt
 npm run trial
 ```
-The trial run will use the Llama2 API and gTTS API to start a conversation. As these public APIs are rate-limited, the conversation will not be too long. However, it will be enjoyable ✨
+The trial run will use the Llama2 API and gTTS API to start a conversation. As these public APIs are rate-limited, the conversation may not be too long. However, it will be enjoyable ✨
 
 To run locally, follow these steps:
 - Install Ollama with Docker and run `$ ollama pull llama2-uncensored; ollama serve;`
