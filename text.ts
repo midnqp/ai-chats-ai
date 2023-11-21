@@ -242,7 +242,7 @@ function startTextbubbleServer() {
     app.listen(6000)
 }
 
-const logger = (...msg: any[]) => {
+const loggerDebug = (...msg: any[]) => {
     if (process.env.AICAI_DEBUG) {
         console.log(...msg)
     }
@@ -263,19 +263,19 @@ export default async function main(opts: CmdOpts) {
             continue
         }
 
-        logger('chat history is:', Chat.history)
+        loggerDebug('chat history is:', Chat.history)
 
         const { name, role } = Persons.togglePerson()
-        logger('person about to reply:', role.split(' ').slice(0, 2).join(' '))
+        loggerDebug('person about to reply:', role.split(' ').slice(0, 2).join(' '))
 
         const prompt = Chat.generate(name)
-        logger('prompt about to be replied to:', prompt)
+        loggerDebug('prompt about to be replied to:', prompt)
 
         const sentence = await LlmApi.generate({ prompt, role }, opts.trial)
-        logger('resonse to prompt: ', sentence)
+        loggerDebug('resonse to prompt: ', sentence)
 
         VoiceApi.play(sentence, name, opts.trial)
         Chat.addToHistory({ msg: sentence, fromPersonName: name })
-        logger('-------------------------------')
+        loggerDebug('-------------------------------')
     }
 }
