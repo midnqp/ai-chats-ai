@@ -1,5 +1,9 @@
 {
     "type": "module",
+    "scripts": {
+        "start": "npx ts-node-esm ./index.ts",
+        "trial": "npx ts-node-esm ./index.ts --trial"
+    },
     "dependencies": {
         "axios": "^1.6.1",
         "boxen": "^7.1.1",
@@ -9,6 +13,7 @@
     "devDependencies": {
         "@types/express": "^4.17.21",
         "@types/node": "^20.9.0",
-        "typescript": "^5.2.2"
+        "ts-node": "^10.9.1",
+        "typescript": "^5.3.2"
     }
 }
