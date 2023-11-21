@@ -11,7 +11,7 @@ import sounddevice
 import requests, termcolor
 
 app = Flask(__name__)
-tts = TTS("tts_models/en/vctk/vits", progress_bar=False).to('cpu')
+tts = None
 app.logger.disabled=True
 logging.getLogger('werkzeug').disabled = True
 
@@ -64,7 +64,11 @@ def tts_gtts(data, accent):
     return fp
 
 def tts_llm(data, accent):
+    global tts
     speaker = 'p251' if accent == 'us' else 'p305'
+    if tts is None:
+        tts = TTS("tts_models/en/vctk/vits", progress_bar=False).to('cpu')
+
     wav = tts.tts(text=data, speaker=speaker)
     return wav
 

@@ -163,7 +163,8 @@ class LlmApi {
             audio: null, image: null,
             maxTokens: 800,
             prompt: opts.prompt,
-            systemPrompt: 'Reply in short, within 20 words, never longer than 20 words.',
+            systemPrompt: 'You are an assistant who always replies in less than 20 words!',
+            //systemPrompt: 'Reply in short, within 20 words, never longer than 20 words.',
             temperature: 0.75,
             topP: 0.9,
             version: '02e509c789964a7ea8736978a43525956ef40397be9033abf9fd2badfe68c9e3'
@@ -247,12 +248,12 @@ const logger = (...msg: any[]) => {
     }
 }
 
-type CmdOpts = { trial: boolean }
+type CmdOpts = { trial: boolean, icebreaker:string }
 
 export default async function main(opts: CmdOpts) {
     startTextbubbleServer()
 
-    const c = { msg: `Let's talk about Bangladesh!`, fromPersonName: 'me' }
+    const c = { msg: opts.icebreaker, fromPersonName: 'me' }
     Chat.addToHistory(c)
     VoiceApi.play(c.msg, c.fromPersonName, opts.trial)
 
@@ -262,16 +263,16 @@ export default async function main(opts: CmdOpts) {
             continue
         }
 
-        logger('chat history is: ' + Chat.history)
+        logger('chat history is:', Chat.history)
 
         const { name, role } = Persons.togglePerson()
-        logger('person about to reply: ' + role.split(' ').slice(0, 2).join(' '))
+        logger('person about to reply:', role.split(' ').slice(0, 2).join(' '))
 
         const prompt = Chat.generate(name)
-        logger('prompt about to be replied to: ' + prompt)
+        logger('prompt about to be replied to:', prompt)
 
         const sentence = await LlmApi.generate({ prompt, role }, opts.trial)
-        logger('resonse to prompt: ' + sentence)
+        logger('resonse to prompt: ', sentence)
 
         VoiceApi.play(sentence, name, opts.trial)
         Chat.addToHistory({ msg: sentence, fromPersonName: name })
