@@ -1,14 +1,14 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "module": "NodeNext",
-        "target": "ESNext",
-        "resolveJsonModule": true,
-        "moduleResolution": "NodeNext",
-        "rootDir": ".",
-        "baseUrl": ".",
-        "outDir": "./dist",
-        "skipLibCheck": true
-    },
-    "include": ["./index.ts", "./text.ts"],
+  "compilerOptions": {
+    "strict": true,
+    "module": "NodeNext",
+    "target": "ESNext",
+    "resolveJsonModule": true,
+    "moduleResolution": "NodeNext",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "skipLibCheck": true
+  },
+  "include": ["./*.ts"]
 }

@@ -1,3 +1,4 @@
+from datetime import datetime
 from io import BytesIO
 import threading
 import time
@@ -9,6 +10,10 @@ from pydub.playback import play
 from TTS.api import TTS
 import sounddevice
 import requests, termcolor
+from scipy.io import wavfile
+import pygame
+import tempfile
+pygame.mixer.init()
 
 app = Flask(__name__)
 tts = None
@@ -68,13 +73,27 @@ def tts_llm(data, accent):
     speaker = 'p251' if accent == 'us' else 'p305'
     if tts is None:
         tts = TTS("tts_models/en/vctk/vits", progress_bar=False).to('cpu')
+        
 
-    wav = tts.tts(text=data, speaker=speaker)
-    return wav
+    #wav = tts.tts(text=data, speaker=speaker)
+    #wav_filename = "temp"+datetime.now().isoformat()+".wav"
+    wav_filename = tempfile.mktemp(suffix='.wav')
+    tts.tts_to_file(text=data, speaker=speaker, file_path=wav_filename)
+    #wav = []
+    return wav_filename
 
-def play_wav(wav):
-    sounddevice.play(wav, 22050)
-    sounddevice.wait()
+def play_wav(wav_filename):
+    #sounddevice.play(wav, 22050)
+    print('playing...', wav_filename)
+    #sounddevice.play(wav, blocking=True)
+    #sounddevice.wait()
+    #fs, wav = wavfile.read(wav_filename)
+    #sounddevice.play(wav, fs)
+    #sounddevice.wait()
+    #pygame.sndarray.make_sound(wav).play()
+    sound = pygame.mixer.Sound(wav_filename)
+    sound.play()
+    pygame.time.delay(int(sound.get_length() * 1000))
 
 def worker_make_audio():
     color='blue'
@@ -103,6 +122,7 @@ def worker_make_audio():
             if engine == 'coqui-tts':
                 wav = tts_llm(data, accent)
                 result['wav'] = wav
+                #print(wav)
                 audios_made.append(result)
             elif engine == 'gtts':
                 mp3 = tts_gtts(data, accent)
