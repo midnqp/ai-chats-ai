@@ -1,5 +1,6 @@
 from datetime import datetime
 from io import BytesIO
+import subprocess
 import threading
 import time
 from flask import Flask, request
@@ -95,14 +96,18 @@ def worker_make_audio():
             engine = item['tts']
             result = item.copy()
 
-            if engine == 'coqui-tts':
-                wav = tts_llm(data, accent)
-                result['wav'] = wav
-                #print(wav)
-                #audios_made.append(result)
-                #r = {'wav_filename': wav}
+            wav_filename = tts_llm(data, accent)
+            sample_rate, audio_data = wavfile.read(wav_filename)
+            audio_duration = len(audio_data) / sample_rate
+
+            #subprocess.Popen(['python', './voice_player2.py', wav_filename])
+            #print('subprocesss ran')
+            result['wav'] = wav_filename
+            try:
                 requests.post('http://127.0.0.1:7000/play', json=result)
-    
+            except:
+                pass
+
     tts_worker_running = False
     
 def main():

@@ -5,7 +5,7 @@ const persons: Array<Person> = [
     role: "Muhammad",
     accent: "us",
     systemPrompt:
-      "You ask thoughtful questions and you speak in less than 20 words. And you never ask off-topic questions, except around once after 20 messages.",
+      "You ask thoughtful questions and you speak in less than 20 words.",
   },
   {
     color: "#f0f0f0",
