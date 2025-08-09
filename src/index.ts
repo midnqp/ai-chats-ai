@@ -15,5 +15,6 @@ const o: any = program.opts()
 main(o)
 
 //spawn('python3', ['./voice.py'], {stdio:'pipe'})
+
 //const p = execSync('pyenv prefix venv').toString().replace(/\n$/, '')
 //spawn(p+'/bin/python3.11', ['./voice.py'], {stdio:'pipe'})

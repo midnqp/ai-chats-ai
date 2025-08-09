@@ -13,7 +13,7 @@ let buffer: Array<{
 async function play(
   sentence: string,
   fromPersonName: string,
-  trial: boolean,
+  trial: boolean = false,
 ): Promise<void> {
   const person = $t(Persons.getByName(fromPersonName))
   const tts = trial ? "gtts" : "coqui-tts"

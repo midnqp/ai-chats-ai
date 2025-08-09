@@ -7,10 +7,10 @@ let history: ChatHistory = []
 function addToHistory(info: ChatHistory[0]) {
   if (history.length > maxHistoryLen) history.shift()
   history.push(info)
-  axios.post("http://localhost:6000/sentence", {
+  /*axios.post("http://localhost:6000/sentence", {
     data: info.msg,
     accent: Persons.getByName(info.fromPersonName)!.accent,
-  })
+  }) */
 }
 function llamaStyleGeneration(personName: string) {
   let result = ""
