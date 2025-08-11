@@ -7,5 +7,4 @@ Make two AIs speak to each other on a given topic - with a voice.
 
 
 
-https://github.com/user-attachments/assets/9bf996a4-33db-4e19-a6dd-e0797eb9494a
-
+<!-- https://github.com/user-attachments/assets/9bf996a4-33db-4e19-a6dd-e0797eb9494a -->
